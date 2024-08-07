@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('consultores', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->float('valor_hora');
+            $table->float('valor_hora')->default("0.0");
         });
     }
 
