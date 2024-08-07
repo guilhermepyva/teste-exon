@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('compromissos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('consultor_codigo');
-            $table->date('data')->default('00-00-0000');
+            $table->date('data')->default('0000-01-01');
             $table->time('hora_inicio')->default('00:00:00');
             $table->time('hora_fim')->default('00:00:00');
             $table->time('intervalo')->default('00:00:00');

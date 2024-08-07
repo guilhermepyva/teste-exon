@@ -14,12 +14,16 @@ Route::get('/teste', function () {
     print(Consultor::create(['nome' => 'Jessica', 'valor_hora' => '45.0']));
 });
 
-Route::post('consultor', function (Request $request) {
+Route::post('/consultor', function (Request $request) {
     return (new ConsultorController)->cadastrar($request);
 });
 
-Route::put('consultor', function () {
+Route::put('/consultor', function (Request $request) {
+    return (new ConsultorController)->atualizar($request);
+});
 
+Route::delete('/consultor', function (Request $request) {
+    return (new ConsultorController())->deletar($request);
 });
 
 Route::get("/consultor", function (Request $request) {
