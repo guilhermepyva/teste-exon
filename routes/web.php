@@ -1,18 +1,9 @@
 <?php
 
+use App\Http\Controllers\CompromissoController;
 use App\Http\Controllers\ConsultorController;
-use App\Models\Consultor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-session_start();
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/teste', function () {
-    print(Consultor::create(['nome' => 'Jessica', 'valor_hora' => '45.0']));
-});
 
 Route::post('/consultor', function (Request $request) {
     return (new ConsultorController)->cadastrar($request);
@@ -28,4 +19,16 @@ Route::delete('/consultor', function (Request $request) {
 
 Route::get("/consultor", function (Request $request) {
     return (new ConsultorController)->pesquisar($request);
+});
+
+Route::post('/compromisso', function (Request $request) {
+   return (new CompromissoController())->cadastrar($request);
+});
+
+Route::put('/compromisso', function (Request $request) {
+    return (new CompromissoController())->atualizar($request);
+});
+
+Route::delete('/compromisso', function (Request $request) {
+    return (new CompromissoController())->deletar($request);
 });

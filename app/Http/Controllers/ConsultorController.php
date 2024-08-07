@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 /**
  *
  */
-class ConsultorController extends Controller
+class ConsultorController
 {
     /**
      * @param Request $request
@@ -29,7 +29,7 @@ class ConsultorController extends Controller
             'valor_hora' => array_key_exists('valor_hora', $validado) ? $validado['valor_hora'] : '0.0',
         ]);
 
-        return ConsultorController::json_response($consultor);
+        return new JsonResponse($consultor, 200);
     }
 
 
@@ -40,7 +40,6 @@ class ConsultorController extends Controller
      */
     public function atualizar(Request $request): JsonResponse
     {
-        //o $request->validate() não funcionou aqui
         $validado = $request->validate([
             ['id' => 'required|integer'],
             ['nome' => 'nullable|string'],
@@ -48,19 +47,19 @@ class ConsultorController extends Controller
             'id.required' => 'O id é obrigatório']);
 
         if (!array_key_exists('id', $validado)) {
-            return ConsultorController::json_response(['erro' => 'id não informado'], 406);
+            return new JsonResponse(['erro' => 'id não informado'], 400);
         }
 
         $consultor = Consultor::find($validado['id']);
 
         if ($consultor == null) {
-            return ConsultorController::json_response(['erro' => 'id não encontrado']);
+            return new JsonResponse(['erro' => 'id não encontrado', 400]);
         }
 
         $strings = ['nome', 'valor_hora'];
         foreach ($strings as $string) {
             if (array_key_exists($string, $validado)) {
-                $consultor->$string = $request[$string];
+                $consultor->$string = $validado[$string];
             }
         }
 
@@ -68,21 +67,25 @@ class ConsultorController extends Controller
         return new JsonResponse($consultor, 200);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function deletar(Request $request): JsonResponse {
         $validado = $request->validate(['id' => 'integer']);
 
         if (!array_key_exists('id', $validado)) {
-            return ConsultorController::json_response(['erro' => 'id não informado'], 406);
+            return new JsonResponse(['erro' => 'id não informado'], 400);
         }
 
         $compromissos = Compromisso::query()->where('consultor_codigo', $validado['id'])->get();
 
         if ($compromissos->count() > 0) {
-            return ConsultorController::json_response(['erro' => 'o consultor ainda tem compromissos']);
+            return new JsonResponse(['erro' => 'o consultor ainda tem compromissos', 400]);
         }
 
         Consultor::destroy($validado['id']);
-        return ConsultorController::json_response(200);
+        return new JsonResponse([], 200);
     }
 
     /**
@@ -100,14 +103,14 @@ class ConsultorController extends Controller
         $page = $validado['page'] ?? 1;
 
         if ($page < 1) {
-            return ConsultorController::json_response(['erro' => 'página abaixo de 1'], 406);
+            return new JsonResponse(['erro' => 'página abaixo de 1'], 400);
         }
 
         if ($query == '') {
-            return ConsultorController::json_response(Consultor::query()->skip(10 * ($page - 1))->limit(10)->get());
+            return new JsonResponse(Consultor::query()->skip(10 * ($page - 1))->limit(10)->get());
         }
 
-        return ConsultorController::json_response(
+        return new JsonResponse(
             Consultor::query()
                 ->whereLike('nome', $query)
                 ->orWhereLike('valor_hora', $query)
