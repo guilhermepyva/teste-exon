@@ -89,6 +89,19 @@ class CompromissoController
         return new JsonResponse(200);
     }
 
+    public function pesquisar(Request $request): JsonResponse {
+        try {
+            $validado = validator($request->all(), [
+                'data' => 'required|date',
+                'hora_inicio' => 'required|date_format:H:i',
+                'hora_fim' => 'required|date_format:H:i',
+                'intervalo' => 'required|date_format:H:i'
+            ])->validate();
+        } catch (Throwable $e) {
+            return new JsonResponse(['erro' => $e->getMessage()], 400);
+        }
+    }
+
     public function formatar_data(string $string): string
     {
         return (new DateTime($string))->format('Y-m-d');

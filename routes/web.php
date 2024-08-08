@@ -32,3 +32,7 @@ Route::put('/compromisso', function (Request $request) {
 Route::delete('/compromisso', function (Request $request) {
     return (new CompromissoController())->deletar($request);
 });
+
+Route::get('/compromisso', function (Request $request) {
+    return (new CompromissoController())->pesquisar($request);
+});
