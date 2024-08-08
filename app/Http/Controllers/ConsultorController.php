@@ -105,9 +105,7 @@ class ConsultorController
      *
      * Exemplo de uso:
      * DELETE /consultor
-     * body {
-     *      'id' = 2
-     * }
+     *      ?id=2
      *
      * Retorna código HTTP 200
      *

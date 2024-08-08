@@ -137,9 +137,8 @@ class CompromissoController
      * Exemplo de uso:
      *
      * DELETE /compromisso
-     * body {
-     *      'id' = 1
-     * }
+     *      ?id=1
+     *
      *
      * Retorna código HTTP 200
      *
