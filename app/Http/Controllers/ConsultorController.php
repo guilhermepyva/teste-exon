@@ -128,16 +128,19 @@ class ConsultorController
             return new JsonResponse(['erro' => $e->getMessage()], 400);
         }
 
+        //Não pude usar o $validado aqui pois estava dando o erro Undefined array key "id"
+        $request = $request->all();
+
         //Procura no banco de dados se o consultor está registrado em um compromisso
-        $compromissos = Compromisso::query()->where('consultor_codigo', $validado['id'])->get();
+        $compromissos = Compromisso::query()->where('consultor_codigo', $request['id'])->get();
 
         //Caso esteja, retorna erro
         if ($compromissos->count() > 0)
             return new JsonResponse(['erro' => 'o consultor ainda tem compromissos', 400]);
 
         //Caso contrário, ele será deletado
-        Consultor::destroy($validado['id']);
-        return new JsonResponse([], 200);
+        Consultor::destroy($request['id']);
+        return new JsonResponse(200);
     }
 
     /**
