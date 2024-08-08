@@ -54,6 +54,13 @@ class CompromissoController
         if (Consultor::find($validado['consultor_codigo']) == null)
             return new JsonResponse(['erro' => 'consultor não encontrado'], 400);
 
+        //Verificar se o inicio da data e hora não são depois do fim da data e hora
+        if ((new DateTime($validado['data_inicio']) > new DateTime($validado['data_fim'])))
+            return new JsonResponse(['erro' => 'a data_inicio não pode ser depois da data_fim']);
+
+        if ((new DateTime($validado['hora_inicio']) > new DateTime($validado['hora_fim'])))
+            return new JsonResponse(['erro' => 'a hora_inicio não pode ser depois da hora_fim']);
+
         return new JsonResponse(Compromisso::create([
             'consultor_codigo' => $validado['consultor_codigo'],
             'data_inicio' => $this->formatar_data($validado['data_inicio']),
