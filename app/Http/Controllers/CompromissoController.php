@@ -233,8 +233,6 @@ class CompromissoController
                 return new JsonResponse(['consultor não encontrado'], 400);
         }
 
-        print($query->toRawSql());
-
         //Aplica o skip das páginas e pega os 10 itens do filtro
         $compromissos = $query->skip(10 * ($pagina - 1))->limit(10)->get();
 
