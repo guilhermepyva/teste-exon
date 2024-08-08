@@ -53,6 +53,10 @@ class ConsultorController
     /**
      * Este é o PUT do /consultor
      *
+     *  Para performar um PUT você deve fazer um POST /compromisso?_method=PUT pois o PHP
+     *  tem restrições em relação ao método PUT (isso somente se estiver usando o body form-data para enviar os dados,
+     *  pois também é possível usar os parâmetros da URL ou então estar usando o body como JSON)
+     *
      * Exemplo de uso:
      * PUT /consultor
      * body {
