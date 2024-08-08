@@ -5,6 +5,7 @@ use App\Http\Controllers\ConsultorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+//Rotas da parte do consultor
 Route::post('/consultor', function (Request $request) {
     return (new ConsultorController)->cadastrar($request);
 });
@@ -21,6 +22,7 @@ Route::get("/consultor", function (Request $request) {
     return (new ConsultorController)->pesquisar($request);
 });
 
+//Rotas da parte do compromisso
 Route::post('/compromisso', function (Request $request) {
    return (new CompromissoController())->cadastrar($request);
 });

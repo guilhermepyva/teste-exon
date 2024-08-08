@@ -10,6 +10,6 @@ class Compromisso extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'consultor_codigo', 'data', 'hora_inicio', 'hora_fim', 'intervalo'
+        'consultor_codigo', 'data_inicio', 'data_fim', 'hora_inicio', 'hora_fim', 'intervalo'
     ];
 }
