@@ -143,8 +143,8 @@ class ConsultorController
      *
      * Exemplo de uso:
      * GET /consultor
-     *      query=geraldo=22 (opcional)
-     *      páaina=2 (opcional) (cada página tem 10 itens)
+     *      ?query=geraldo=22 (opcional)
+     *      &páaina=2 (opcional) (cada página tem 10 itens)
      *
      * Retorna código HTTP 200
      *

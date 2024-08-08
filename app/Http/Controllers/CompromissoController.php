@@ -168,9 +168,9 @@ class CompromissoController
      * Exemplo de uso:
      *
      * GET /compromisso
-     *      consultor_codigo=2 (opcional)
-     *      data_inicio=2024-12-01 (opcional)
-     *      data_fim=2024-12-24 (opcional)
+     *      ?consultor_codigo=2 (opcional)
+     *      &data_inicio=2024-12-01 (opcional)
+     *      &data_fim=2024-12-24 (opcional)
      *
      * Exemplo de retorno:
      *
@@ -232,6 +232,8 @@ class CompromissoController
             else
                 return new JsonResponse(['consultor não encontrado'], 400);
         }
+
+        print($query->toRawSql());
 
         //Aplica o skip das páginas e pega os 10 itens do filtro
         $compromissos = $query->skip(10 * ($pagina - 1))->limit(10)->get();
