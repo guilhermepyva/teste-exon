@@ -168,11 +168,9 @@ class CompromissoController
      * Exemplo de uso:
      *
      * GET /compromisso
-     * body {
-     *      'consultor_codigo' = 2 (opcional)
-     *      'data_inicio' = '2024-12-01' (opcional)
-     *      'data_fim' = '2024-12-24' (opcional)
-     * }
+     *      consultor_codigo=2 (opcional)
+     *      data_inicio=2024-12-01 (opcional)
+     *      data_fim=2024-12-24 (opcional)
      *
      * Exemplo de retorno:
      *
