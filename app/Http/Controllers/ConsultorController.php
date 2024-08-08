@@ -55,7 +55,7 @@ class ConsultorController
      *
      *  Para performar um PUT você deve fazer um POST /compromisso?_method=PUT pois o PHP
      *  tem restrições em relação ao método PUT (isso somente se estiver usando o body form-data para enviar os dados,
-     *  pois também é possível usar os parâmetros da URL ou então estar usando o body como JSON)
+     *  pois também é possível usar os parâmetros da URL ou então usar o body como JSON)
      *
      * Exemplo de uso:
      * PUT /consultor
@@ -76,15 +76,18 @@ class ConsultorController
         try {
             $validado = validator($request->all(), [
                 ['id' => 'required|integer'],
-                ['nome' => 'nullable|string'],
-                ['valor_hora' => 'nullable|numeric']], [
-                'id.required' => 'O id é obrigatório'])->validate();;
+                ['nome' => 'string'],
+                ['valor_hora' => 'numeric']
+            ])->validate();
         } catch (ValidationException $e) {
             return new JsonResponse(['erro' => $e->getMessage()], 400);
         }
 
+        //Não pude usar o $validado aqui pois estava dando o erro Undefined array key "id"
+        $request = $request->all();
+
         //Obtém o consultor para atualizar
-        $consultor = Consultor::find($validado['id']);
+        $consultor = Consultor::find($request['id']);
 
         //Checa se consultor é nulo
         if ($consultor == null) {
@@ -94,8 +97,8 @@ class ConsultorController
         //Atualiza os dados do consultor
         $strings = ['nome', 'valor_hora'];
         foreach ($strings as $string) {
-            if (array_key_exists($string, $validado)) {
-                $consultor->$string = $validado[$string];
+            if (array_key_exists($string, $request)) {
+                $consultor->$string = $request[$string];
             }
         }
 
